@@ -31,16 +31,16 @@ Java_com_zivpn_core_BinaryManager_startTun2Socks(JNIEnv *env, jobject thiz, jint
 
     if (pid == 0) {
         // Child process
-        char fd_str[16];
-        sprintf(fd_str, "%d", tun_fd);
+        char device_str[64];
+        sprintf(device_str, "fd://%d", tun_fd);
 
         // Prepare arguments
-        // tun2socks --tun-fd <fd> --proxy <proxy>
+        // tun2socks -device fd://<fd> -proxy <proxy>
         char *args[] = {
             (char *)native_path,
-            "--tun-fd",
-            fd_str,
-            "--proxy",
+            "-device",
+            device_str,
+            "-proxy",
             (char *)native_proxy,
             NULL
         };
