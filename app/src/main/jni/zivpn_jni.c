@@ -35,13 +35,15 @@ Java_com_zivpn_core_BinaryManager_startTun2Socks(JNIEnv *env, jobject thiz, jint
         sprintf(device_str, "fd://%d", tun_fd);
 
         // Prepare arguments
-        // tun2socks -device fd://<fd> -proxy <proxy>
+        // tun2socks -device fd://<fd> -proxy <proxy> -loglevel debug
         char *args[] = {
             (char *)native_path,
             "-device",
             device_str,
             "-proxy",
             (char *)native_proxy,
+            "-loglevel",
+            "debug",
             NULL
         };
 

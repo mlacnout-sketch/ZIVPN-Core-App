@@ -58,7 +58,7 @@ object BinaryManager {
         // 1. Start 4 Hysteria Cores (Port 1080-1083)
         for (i in 0 until 4) {
             val port = 1080 + i
-            // val configFile = File(context.filesDir, "hysteria_$port.json")
+            val configFile = File(context.filesDir, "hysteria_$port.json")
             val configJson = """
                 {
                     "server": "$serverIp:6000-19999",
@@ -73,11 +73,10 @@ object BinaryManager {
                 }
             """.trimIndent()
             
-            // configFile.writeText(configJson)
+            configFile.writeText(configJson)
 
-            // Gunakan format: -s <obfs> --config <json_string>
-            // Hati-hati: ProcessBuilder akan menghandle escaping argumen.
-            val cmd = listOf(libUzPath, "-s", OBFS, "--config", configJson)
+            // Gunakan format: -s <obfs> --config <file_path>
+            val cmd = listOf(libUzPath, "-s", OBFS, "--config", configFile.absolutePath)
             startProcess(cmd, "Hysteria-$port")
         }
 
@@ -96,7 +95,7 @@ object BinaryManager {
     private fun startProcess(command: List<String>, name: String) {
         try {
             val pb = ProcessBuilder(command)
-            pb.environment()["LD_LIBRARY_PATH"] = "" // Reset LD path jika perlu
+            // pb.environment()["LD_LIBRARY_PATH"] = "" // Removed: potentially dangerous
             val process = pb.start()
             processList.add(process)
             
