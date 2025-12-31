@@ -1,0 +1,16 @@
+# Gradle files
+.gradle/
+build/
+app/build/
+local.properties
+
+# IDE files
+.idea/
+*.iml
+.DS_Store
+
+# Temporary files
+test_bin/
+test_core.sh
+*.log
+tmp/
