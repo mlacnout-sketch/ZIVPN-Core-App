@@ -23,17 +23,11 @@ jobs:
 
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew || true
-      # Note: We don't have gradlew wrapper in repo yet, so we rely on global gradle or init it.
-      # Since we only added build.gradle.kts, let's try to build directly or generate wrapper.
-
-    - name: Generate Gradle Wrapper (if missing)
-      run: gradle wrapper
+      with:
+        gradle-version: '8.5' # Specify explicit Gradle version since wrapper is missing
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      run: gradle assembleDebug --no-daemon
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
